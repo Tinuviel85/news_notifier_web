@@ -1,0 +1,5 @@
+Flask==2.0.1
+requests==2.25.1
+beautifulsoup4==4.9.3
+pdfplumber==0.5.28
+pdf2image==1.16.0

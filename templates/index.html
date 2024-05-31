@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Notifier Berlin</title>
+</head>
+<body>
+    <h1>News Notifier Berlin</h1>
+    
+    <h2>Pressemitteilungen</h2>
+    {% if articles %}
+        {% for title, content, url in articles %}
+            <h3>{{ title }}</h3>
+            <p>{{ content }}</p>
+            <p><a href="{{ url }}" target="_blank">Link zur Pressemitteilung</a></p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>Keine relevanten Pressemitteilungen gefunden.</p>
+    {% endif %}
+    
+    <h2>Amtsblatt</h2>
+    {% if pdf_metadata %}
+        <p>Das aktuelle Amtsblatt: {{ pdf_metadata }}</p>
+        <p><a href="{{ url_for('download', filename=pdf_metadata + '/' + pdf_metadata + '.pdf') }}">Download komplettes Amtsblatt</a></p>
+        <h3>Hervorgehobene Seiten:</h3>
+        <div>
+            {% for image in range(1, 4) %}
+                <img src="{{ url_for('static', filename='downloads/' + pdf_metadata + '/page_' + image|string + '.png') }}" alt="Page {{ image }}">
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Kein Amtsblatt gefunden.</p>
+    {% endif %}
+</body>
+</html>
